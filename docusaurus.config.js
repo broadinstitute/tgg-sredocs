@@ -42,15 +42,15 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/broadinstitute/tgg-sredocs/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/broadinstitute/tgg-sredocs/tree/main/',
         },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/broadinstitute/tgg-sredocs/tree/main/packages/create-docusaurus/templates/shared/',
-        },
+        // blog: {
+        //   showReadingTime: true,
+        //   // Please change this to your repo.
+        //   // Remove this to remove the "edit this page" links.
+        //   editUrl:
+        //     'https://github.com/broadinstitute/tgg-sredocs/tree/main/',
+        // },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -72,13 +72,13 @@ const config = {
         items: [
           {
             type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
+            sidebarId: 'docsSidebar',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Docs',
           },
-          { to: '/blog', label: 'Blog', position: 'left' },
+          // { to: '/blog', label: 'Blog', position: 'left' },
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/broadinstitute/tgg-sredocs',
             label: 'GitHub',
             position: 'right',
           },
@@ -91,25 +91,25 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
+                label: 'Docs',
                 to: '/docs/intro',
               },
             ],
           },
           {
-            title: 'Community',
+            title: 'Tools',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                label: 'tgg-terraform-modules',
+                href: 'https://github.com/broadinstitute/tgg-terraform-modules'
               },
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                label: 'gnomad-helm',
+                href: 'https://github.com/broadinstitute/gnomad-helm'
               },
               {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                label: 'seqr-helm',
+                href: 'https://github.com/broadinstitute/seqr-helm'
               },
             ],
           },
@@ -117,12 +117,20 @@ const config = {
             title: 'More',
             items: [
               {
-                label: 'Blog',
-                to: '/blog',
+                label: 'ClinGen',
+                href: 'https://clinicalgenome.org'
               },
               {
-                label: 'GitHub',
-                href: 'https://github.com/broadinstitute/tgg-sredocs',
+                label: 'gnomAD Browser',
+                href: 'https://gnomad.broadinstitute.org',
+              },
+              {
+                label: 'seqr',
+                href: 'https://seqr.broadinstitute.org',
+              },
+              {
+                label: 'The TGG',
+                href: 'https://the-tgg.org',
               },
             ],
           },
