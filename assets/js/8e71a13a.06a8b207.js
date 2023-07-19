@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunktgg_sredocs=self.webpackChunktgg_sredocs||[]).push([[494],{3769:s=>{s.exports=JSON.parse('{"name":"docusaurus-plugin-content-docs","id":"default"}')}}]);
