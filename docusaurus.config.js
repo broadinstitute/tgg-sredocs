@@ -11,15 +11,17 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://sre.the-tgg.dev',
+  url: 'https://docs.sre.the-tgg.dev',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'broadinstitute', // Usually your GitHub org/user name.
+  projectName: 'tgg-sredocs', // Usually your repo name.
+  deploymentBranch: 'gh-pages',
+  trailingSlash: false,
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
