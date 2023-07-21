@@ -118,10 +118,36 @@ module "my-test-cluster" {
 
 This configures a single 2-member node pool called "main-pool". You should adjust the `gke_node_pools` variable to suit your development needs.
 
+### Creating resources
+
+To create your resources, create a new folder, and create a file called `main.tf` inside it. That file should contain one of the above examples, and/or any customizations that you need to make for your dev env.
+
+Once you have a `main.tf`, you can provision your test environment with these terraform commands:
+
+```bash
+terraform init
+terraform plan
+terraform apply
+```
+
 ### Connecting to your cluster
 
 Once your cluster is provisioned, be sure to retrieve credentials from it and set your current `kubectl` context:
 
 ```bash
 gcloud container clusters get-credentials gnomad-mytest --project gnomadev --region us-east1
+```
+
+### Cleaning up
+
+When you no longer need your test infrastructure, switch to the directory containing your `main.tf` file, and use the terraform CLI as follows.
+
+:::caution
+
+This will delete everything that was created as a result of using the terraform modules. If you have any data stored in your test cluster or in the GCS buckets that are provisioned with `gnomad-browser-infra`, be sure to copy that data to a safe place.
+
+:::
+
+```bash
+terraform destroy
 ```
