@@ -103,7 +103,7 @@ module "my-test-cluster" {
   gke_control_plane_authorized_networks = ["0.0.0.0/0"]
   gke_services_range_slice              = "10.220.0.0/20"
   gke_pods_range_slice                  = "10.216.0.0/14"
-  gke_node_pools                        = [
+  node_pools                            = [
     {
       "pool_machine_type": "e2-medium",
       "pool_name": "main-pool",
