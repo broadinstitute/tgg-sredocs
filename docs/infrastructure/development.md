@@ -32,12 +32,12 @@ provider "google" {
 }
 
 module "gnomad-mytest" {
-  source              = "github.com/broadinstitute/tgg-terraform-modules//gnomad-vpc?ref=gnomad-vpc-v0.0.1"
+  source              = "github.com/broadinstitute/tgg-terraform-modules//gnomad-vpc?ref=gnomad-vpc-v0.0.2"
   network_name_prefix = "gnomad-mytest
 }
 
 module "gnomad-test-infra" {
-  source                                = "github.com/broadinstitute/tgg-terraform-modules//gnomad-browser-infra?ref=gnomad-browser-infra-v0.0.3"
+  source                                = "github.com/broadinstitute/tgg-terraform-modules//gnomad-browser-infra?ref=gnomad-browser-infra-v0.0.4"
   infra_prefix                          = "gnomad-mytest"
   vpc_network_name                      = module.gnomad-mytest.gnomad_vpc_network_name
   vpc_subnet_name                       = "gnomad-mytest-gke"
@@ -89,7 +89,7 @@ provider "google" {
 }
 
 module "gnomad-mytest" {
-  source              = "github.com/broadinstitute/tgg-terraform-modules//gnomad-vpc?ref=gnomad-vpc-v0.0.1"
+  source              = "github.com/broadinstitute/tgg-terraform-modules//gnomad-vpc?ref=gnomad-vpc-v0.0.2"
   network_name_prefix = "gnomad-mytest
 }
 
