@@ -31,6 +31,16 @@ provider "google" {
     region  = "us-east1"
 }
 
+data "google_client_config" "tf_sa" {}
+
+provider "kubernetes" {
+  host  = "https://${module.gnomad-test-infra.gke_cluster_api_endpoint}"
+  token = data.google_client_config.tf_sa.access_token
+  cluster_ca_certificate = base64decode(
+    module.gnomad-test-infra.gke_cluster_ca_cert,
+  )
+}
+
 module "gnomad-mytest" {
   source              = "github.com/broadinstitute/tgg-terraform-modules//gnomad-vpc?ref=gnomad-vpc-v0.0.2"
   network_name_prefix = "gnomad-mytest"
