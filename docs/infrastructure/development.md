@@ -19,9 +19,17 @@ While `deployctl` is still the method for deploying our application manifests, y
 
 :::
 
-The following are some examples of different configurations that are suitable for development
+### Best Practices
 
-### Full Prod Replica
+**Preemptible Node Pools**
+
+By default, our terraform modules configure GKE node pools that don't have preemptible VMs, since this is more stable for production deployments. For development environments, preemptible VMs might be a better choice, since they are dramatically cheaper. The example configurations below show how to set your node pools as preemptible.
+
+### Example Deveplopment Configurations
+
+The following are some examples of different configurations that are suitable for development.
+
+#### Full Prod Replica
 
 This example configures a VPC and a cluster with the same amount of resources as the production environment. Note that we've selected preemptiple nodes here to reduce cost. You should adjust the `gke_node_pools` variable to meet the needs of your current test.
 
@@ -88,7 +96,7 @@ module "gnomad-test-infra" {
 }
 ```
 
-### Simple private GKE cluster
+#### Simple private GKE cluster
 
 If all you need is a GKE cluster, you could use the following example:
 
