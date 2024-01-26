@@ -48,7 +48,7 @@ module "gnomad-vpc-mytest" {
 }
 
 module "gnomad-browser-infra" {
-  depends_on                            = [module.gnomad-mytest]
+  depends_on                            = [module.gnomad-vpc-mytest]
   source                                = "github.com/broadinstitute/tgg-terraform-modules//gnomad-browser-infra?ref=gnomad-browser-infra-v1.2.3"
   infra_prefix                          = "gnomad-mytest"
   vpc_network_name                      = module.gnomad-vpc-mytest.gnomad_vpc_network_name
