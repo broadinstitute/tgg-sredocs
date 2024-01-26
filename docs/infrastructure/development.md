@@ -49,7 +49,7 @@ module "gnomad-vpc-mytest" {
 
 module "gnomad-browser-infra" {
   depends_on                            = [module.gnomad-mytest]
-  source                                = "github.com/broadinstitute/tgg-terraform-modules//gnomad-browser-infra?ref=private-gke-cluster-v1.0.4"
+  source                                = "github.com/broadinstitute/tgg-terraform-modules//gnomad-browser-infra?ref=gnomad-browser-infra-v1.2.3"
   infra_prefix                          = "gnomad-mytest"
   vpc_network_name                      = module.gnomad-vpc-mytest.gnomad_vpc_network_name
   vpc_subnet_name                       = "${module.gnomad-vpc-mytest.gnomad_vpc_network_name}-gke"
