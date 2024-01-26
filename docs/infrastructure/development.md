@@ -37,7 +37,7 @@ module "gnomad-mytest" {
 }
 
 module "gnomad-test-infra" {
-  source                                = "github.com/broadinstitute/tgg-terraform-modules//gnomad-browser-infra?ref=gnomad-browser-infra-v0.0.4"
+  source                                = "github.com/broadinstitute/tgg-terraform-modules//gnomad-browser-infra?ref=gnomad-browser-infra-v1.2.2"
   infra_prefix                          = "gnomad-mytest"
   vpc_network_name                      = module.gnomad-mytest.gnomad_vpc_network_name
   vpc_subnet_name                       = "gnomad-mytest-gke"
@@ -94,7 +94,7 @@ module "gnomad-mytest" {
 }
 
 module "my-test-cluster" {
-  source                                = "github.com/broadinstitute/tgg-terraform-modules//private-gke-cluster?ref=private-gke-cluster-v1.0.2"
+  source                                = "github.com/broadinstitute/tgg-terraform-modules//private-gke-cluster?ref=private-gke-cluster-v1.0.3"
   gke_cluster_name                      = "testing-cidr-ranges"
   project_name                          = "gnomadev"
   gke_control_plane_zone                = "us-east1"
