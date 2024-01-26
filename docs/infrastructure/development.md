@@ -103,18 +103,19 @@ provider "google" {
     region  = "us-east1"
 }
 
-module "gnomad-mytest" {
+module "gnomad-vpc-mytest" {
   source              = "github.com/broadinstitute/tgg-terraform-modules//gnomad-vpc?ref=gnomad-vpc-v0.0.2"
   network_name_prefix = "gnomad-mytest
 }
 
 module "my-test-cluster" {
+  depends_on                            = [module.gnomad-vpc-mytest]
   source                                = "github.com/broadinstitute/tgg-terraform-modules//private-gke-cluster?ref=private-gke-cluster-v1.0.4"
   gke_cluster_name                      = "testing-cidr-ranges"
   project_name                          = "gnomadev"
   gke_control_plane_zone                = "us-east1"
-  vpc_network_name                      = module.gnomad-mytest.gnomad_vpc_network_name
-  vpc_subnet_name                       = "gnomad-mytest-gke"
+  vpc_network_name                      = module.gnomad-vpc-mytest.gnomad_vpc_network_name
+  vpc_subnet_name                       = "${module.gnomad-vpc-mytest.gnomad_vpc_network_name}-gke"
   gke_control_plane_authorized_networks = ["0.0.0.0/0"]
   gke_services_range_slice              = "10.220.0.0/20"
   gke_pods_range_slice                  = "10.216.0.0/14"
