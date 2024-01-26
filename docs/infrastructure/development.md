@@ -26,53 +26,68 @@ The following are some examples of different configurations that are suitable fo
 This example configures a VPC and a cluster with the same amount of resources as the production environment. Note that we've selected preemptiple nodes here to reduce cost. You should adjust the `gke_node_pools` variable to meet the needs of your current test.
 
 ```
+
 provider "google" {
-    project = "gnomadev"
-    region  = "us-east1"
+  project = "gnomadev"
+  region  = "us-east1"
 }
 
-module "gnomad-mytest" {
+data "google_client_config" "tf_sa" {}
+
+provider "kubernetes" {
+  host  = "https://${module.gnomad-browser-infra.gke_cluster_api_endpoint}"
+  token = data.google_client_config.tf_sa.access_token
+  cluster_ca_certificate = base64decode(
+    module.gnomad-browser-infra.gke_cluster_ca_cert,
+  )
+}
+
+module "gnomad-vpc-mytest" {
   source              = "github.com/broadinstitute/tgg-terraform-modules//gnomad-vpc?ref=gnomad-vpc-v0.0.2"
   network_name_prefix = "gnomad-mytest"
 }
 
-module "gnomad-test-infra" {
-  source                                = "github.com/broadinstitute/tgg-terraform-modules//gnomad-browser-infra?ref=gnomad-browser-infra-v1.2.2"
+module "gnomad-browser-infra" {
+  depends_on                            = [module.gnomad-mytest]
+  source                                = "github.com/broadinstitute/tgg-terraform-modules//gnomad-browser-infra?ref=private-gke-cluster-v1.0.4"
   infra_prefix                          = "gnomad-mytest"
-  vpc_network_name                      = module.gnomad-mytest.gnomad_vpc_network_name
-  vpc_subnet_name                       = "gnomad-mytest-gke"
+  vpc_network_name                      = module.gnomad-vpc-mytest.gnomad_vpc_network_name
+  vpc_subnet_name                       = "${module.gnomad-vpc-mytest.gnomad_vpc_network_name}-gke"
   project_id                            = "gnomadev"
   gke_control_plane_authorized_networks = ["0.0.0.0/0"]
   gke_pods_range_slice                  = "10.164.0.0/14"
   gke_services_range_slice              = "10.168.0.0/20"
-  gke_node_pools                        = [
+  gke_control_plane_zone                = "us-east1-b"
+  es_snapshots_bucket_location          = "us-east1"
+  data_pipeline_bucket_location         = "us-east1"
+  gke_node_pools = [
     {
-      "pool_machine_type": "e2-standard-4",
-      "pool_name": "main-pool",
-      "pool_num_nodes": 2,
-      "pool_preemptible": true,
-      "pool_resource_labels": {},
-      "pool_zone": ""
+      "pool_name"            = "main-pool"
+      "pool_num_nodes"       = 2
+      "pool_machine_type"    = "e2-standard-4"
+      "pool_preemptible"     = true
+      "pool_zone"            = ""
+      "pool_resource_labels" = {}
     },
     {
-      "pool_machine_type": "e2-custom-6-49152",
-      "pool_name": "redis",
-      "pool_num_nodes": 1,
-      "pool_preemptible": true,
-      "pool_resource_labels": {
-        "component": "redis"
-      },
-      "pool_zone": ""
+      "pool_name"         = "redis"
+      "pool_num_nodes"    = 1
+      "pool_machine_type" = "e2-custom-6-49152"
+      "pool_preemptible"  = true
+      "pool_zone"         = ""
+      "pool_resource_labels" = {
+        "component" = "redis"
+      }
     },
     {
-      "pool_machine_type": "e2-highmem-8",
-      "pool_name": "es-data",
-      "pool_num_nodes": 3,
-      "pool_preemptible": true,
-      "pool_resource_labels": {
-        "component": "elasticsearch"
-      },
-      "pool_zone": ""
+      "pool_name"         = "es-data"
+      "pool_num_nodes"    = 3
+      "pool_machine_type" = "e2-highmem-8"
+      "pool_preemptible"  = true
+      "pool_zone"         = ""
+      "pool_resource_labels" = {
+        "component" = "elasticsearch"
+      }
     }
   ]
 }
@@ -94,7 +109,7 @@ module "gnomad-mytest" {
 }
 
 module "my-test-cluster" {
-  source                                = "github.com/broadinstitute/tgg-terraform-modules//private-gke-cluster?ref=private-gke-cluster-v1.0.3"
+  source                                = "github.com/broadinstitute/tgg-terraform-modules//private-gke-cluster?ref=private-gke-cluster-v1.0.4"
   gke_cluster_name                      = "testing-cidr-ranges"
   project_name                          = "gnomadev"
   gke_control_plane_zone                = "us-east1"
