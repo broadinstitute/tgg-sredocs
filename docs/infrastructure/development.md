@@ -105,7 +105,7 @@ provider "google" {
 
 module "gnomad-vpc-mytest" {
   source              = "github.com/broadinstitute/tgg-terraform-modules//gnomad-vpc?ref=gnomad-vpc-v0.0.2"
-  network_name_prefix = "gnomad-mytest
+  network_name_prefix = "gnomad-mytest"
 }
 
 module "my-test-cluster" {
