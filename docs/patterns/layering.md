@@ -47,3 +47,5 @@ In the preceding example, you would deploy a fresh environment in the following 
 3. in each of the `services` directories, run `terraform apply`
 
 With this directory structure in place, you can see how the opportunity is provided to independently update any of these components without affecting the others. As a smaller implementation detail, when using terraform, this also has the added benefit of limiting the size and scope of the state file. There's less risk of corrupting state outside of the small scope that you're currently changing, and smaller state files keep you from running into the maximum number of resources that can be managed in a single state file.
+
+Changes to the application can now also be made with less friction. With a smaller scope, it's much less likely that your change will be stuck behind changes that are in progress in other layers of the stack.
