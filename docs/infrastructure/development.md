@@ -23,7 +23,7 @@ While `deployctl` is still the method for deploying our application manifests, y
 
 **Preemptible Node Pools**
 
-By default, our terraform modules configure GKE node pools that don't have preemptible VMs, since this is more stable for production deployments. For development environments, preemptible VMs might be a better choice, since they are dramatically cheaper. The example configurations below show how to set your node pools as preemptible.
+For development environments, preemptible or spot VMs might be a good choice, since they are dramatically cheaper. The example configurations below show how to set your node pools as preemptible or spot.
 
 ### Example Deveplopment Configurations
 
@@ -57,7 +57,7 @@ module "gnomad-vpc-mytest" {
 
 module "gnomad-browser-infra" {
   depends_on                            = [module.gnomad-vpc-mytest]
-  source                                = "github.com/broadinstitute/tgg-terraform-modules//gnomad-browser-infra?ref=gnomad-browser-infra-v1.2.3"
+  source                                = "github.com/broadinstitute/tgg-terraform-modules//gnomad-browser-infra?ref=gnomad-browser-infra-v1.3.0"
   infra_prefix                          = "gnomad-mytest"
   vpc_network_name                      = module.gnomad-vpc-mytest.gnomad_vpc_network_name
   vpc_subnet_name                       = "${module.gnomad-vpc-mytest.gnomad_vpc_network_name}-gke"
@@ -73,16 +73,13 @@ module "gnomad-browser-infra" {
       "pool_name"            = "main-pool"
       "pool_num_nodes"       = 2
       "pool_machine_type"    = "e2-standard-4"
-      "pool_preemptible"     = true
-      "pool_zone"            = ""
-      "pool_resource_labels" = {}
+      "pool_spot"     = true
     },
     {
       "pool_name"         = "redis"
       "pool_num_nodes"    = 1
       "pool_machine_type" = "e2-custom-6-49152"
-      "pool_preemptible"  = true
-      "pool_zone"         = ""
+      "pool_spot"  = true
       "pool_resource_labels" = {
         "component" = "redis"
       }
@@ -91,8 +88,7 @@ module "gnomad-browser-infra" {
       "pool_name"         = "es-data"
       "pool_num_nodes"    = 3
       "pool_machine_type" = "e2-highmem-8"
-      "pool_preemptible"  = true
-      "pool_zone"         = ""
+      "pool_spot"  = true
       "pool_resource_labels" = {
         "component" = "elasticsearch"
       }
@@ -118,7 +114,7 @@ module "gnomad-vpc-mytest" {
 
 module "my-test-cluster" {
   depends_on                            = [module.gnomad-vpc-mytest]
-  source                                = "github.com/broadinstitute/tgg-terraform-modules//private-gke-cluster?ref=private-gke-cluster-v1.0.4"
+  source                                = "github.com/broadinstitute/tgg-terraform-modules//private-gke-cluster?ref=private-gke-cluster-v1.1.0"
   gke_cluster_name                      = "testing-cidr-ranges"
   project_name                          = "gnomadev"
   gke_control_plane_zone                = "us-east1"
@@ -132,9 +128,7 @@ module "my-test-cluster" {
       "pool_machine_type": "e2-medium",
       "pool_name": "main-pool",
       "pool_num_nodes": 2,
-      "pool_preemptible": true,
-      "pool_resource_labels": {},
-      "pool_zone": ""
+      "pool_spot": true,
     }
   ]
 }
