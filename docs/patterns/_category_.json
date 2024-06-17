@@ -1,6 +1,6 @@
 {
     "label": "Patterns",
-    "position": 3,
+    "position": 2,
     "link": {
         "type": "generated-index",
         "description": "General patterns and recommendations for infrastructure."
