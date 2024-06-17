@@ -15,7 +15,7 @@ Anti-pattern here is storing all the deployment configs and environment configs 
 4. tell your deployment tool to deploy the new commit SHA: abcdef2
 5. the actual version of the app that is deployed is: abcdef1.
 
-This causes confusion, and introduces unneccesary commits into the application repository. Instead, with separate deployment/environment configuration, you can imagine a deployments scenario like the following:
+This causes confusion, and introduces unneccesary commits into the application repository. Instead, with separate deployment/environment configuration, you can imagine a deployment scenario like the following:
 
 1. update app, get new commit SHA: abcdef1
 2. update docker image, tag it with abcdef1
