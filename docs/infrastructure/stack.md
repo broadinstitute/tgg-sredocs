@@ -20,18 +20,3 @@ We typically deploy infrastructure in a way where the GCP components are made av
 
 ### Atlantis
 
-## Application Deployment Tools
-
-### github actions
-
-### ArgoCD
-
-### Helm
-
-### Secret Synchronization
-
-### DNS Registration
-
-### TLS Certificates
-
-## Configuring a Development Environment

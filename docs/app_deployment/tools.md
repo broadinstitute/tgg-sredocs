@@ -73,3 +73,21 @@ Available deployment strategies include:
 - Pin to a specific commit and require a manual sync
 - Follow a git tag regex, and only deploy when a tag matching the regex is pushed
 - More complicated deployment strategies (such as blue/green or canary) are available through [Argo Rollouts](https://argoproj.github.io/rollouts/)
+
+### Secret Synchronization
+
+- [External Secrets](https://external-secrets.io)
+
+### DNS Registration
+
+- [External DNS](https://kubernetes-sigs.github.io/external-dns/)
+
+### TLS Certificates
+
+- [ManagedCertificates](https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs)
+- [cert-manager](https://cert-manager.io/)
+
+### Ingress / Load balancing
+
+- [GKE Ingress](https://cloud.google.com/kubernetes-engine/docs/concepts/ingress)
+- [Ingress-NGINX](https://kubernetes.github.io/ingress-nginx/)
