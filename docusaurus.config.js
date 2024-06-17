@@ -106,8 +106,8 @@ const config = {
                 href: 'https://github.com/broadinstitute/tgg-terraform-modules'
               },
               {
-                label: 'gnomad-helm',
-                href: 'https://github.com/broadinstitute/gnomad-helm'
+                label: 'gnomad-deployments',
+                href: 'https://github.com/broadinstitute/gnomad-deployments'
               },
               {
                 label: 'seqr-helm',
