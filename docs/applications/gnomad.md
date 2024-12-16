@@ -7,12 +7,41 @@ title: gnomAD
 
 ## gnomAD Browser
 
+### System Requirements
+
+The gnomAD browser contains several components. The requirements for each are listed independently below.
+- Elasticsearch: 4 data nodes, each with
+  - vCPU: 8
+  - RAM: 64GiB
+  - Disk: 1.7TB SSD ([GCP Documentation](https://cloud.google.com/compute/docs/disks#disk-types))
+    - Total cluster storage: 6.8TB
+- Redis:
+  - vCPU: 1
+  - RAM: 48GiB
+  - DiskP 100GB SSD ([GCP Documentation](https://cloud.google.com/compute/docs/disks#disk-types))
+  - Note: This is the fewest number of CPUs google will provide with this amount of RAM
+- API:
+  - vCPU: 2
+  - RAM: 12GiB
+- Browser (frontend HTTP):
+  - vCPU: 0.5
+  - RAM: 512GiB
+  - Disk: 20GiB SSD (for nginx HTTP cache)
+
 ### Development / Demos
 ### Production
 
 ## Exome Results Browsers
 
 The exome results browsers are deployed on GKE, with manifests an environments managed by [Kustomize](https://kustomize.io). Configurations can be found in the [gnomad-deployments](https://github.com/broadinstitute/gnomad-deployments repository).
+
+### System Requirements
+
+Note, CPU and RAM are upper bounds. In practice, we've found that the app uses less on average. 
+
+- CPU: 0.5vCPU
+- RAM: 512MiB
+- Disk: 100GB Standard Persistent Disk ([GCP Documentation](https://cloud.google.com/compute/docs/disks#disk-types))
 
 ### Development / Demos
 
